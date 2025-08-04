@@ -1,7 +1,8 @@
 # osufetch
 Little program, that show your osu profile info like neofetch/fastfetch
 
-<img width="657" height="928" alt="image" src="https://github.com/user-attachments/assets/a67844c6-0014-43cd-9f4e-1418bdf039d5" />
+<img width="648" height="930" alt="image" src="https://github.com/user-attachments/assets/835bad0d-c368-41d2-b61d-f5e840b93713" />
+
 
 ## Installation
 
