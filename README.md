@@ -33,7 +33,7 @@ Then will starts first run setup, and you need to enter your OAuth client id and
 
 After the first run setup, you can use `osufetch` command to show your osu profile info
 
-Also you can use `osufetch --id {id}` to show info about specific osu! profile
+Also you can use `osufetch {id/username}` to show info about specific osu! profile
 
 ### How to get your OAuth client id and secret
 Go to [osu!](https://osu.ppy.sh/home/account/edit) and click on "New OAuth Application" button
