@@ -229,7 +229,7 @@ def main():
         f"{Fore.CYAN}Accuracy:{Style.RESET_ALL}       {Fore.WHITE}{accuracy}%{Style.RESET_ALL}",
         f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{global_rank}{Style.RESET_ALL}",
         f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{country_rank}{Style.RESET_ALL}",
-        f"{Fore.CYAN}State Rank:{Style.RESET_ALL}     {Fore.WHITE}{state_rank}{Style.RESET_ALL}",
+        f"{Fore.CYAN}State Rank:{Style.RESET_ALL}     {Fore.WHITE}#{state_rank}{Style.RESET_ALL}",
         f"{Fore.CYAN}Play Count:{Style.RESET_ALL}     {Fore.WHITE}{playcount}{Style.RESET_ALL}",
         f"{Fore.CYAN}Max Combo:{Style.RESET_ALL}      {Fore.WHITE}{max_combo}{Style.RESET_ALL}",
         f"{Fore.CYAN}Grades:{Style.RESET_ALL}         {Fore.WHITE}SS: {grades.ss} | SSH: {grades.ssh} | S: {grades.s} | SH: {grades.sh} | A: {grades.a}{Style.RESET_ALL}",
