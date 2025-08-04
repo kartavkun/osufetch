@@ -182,16 +182,16 @@ def main():
 
     region_id = data.get("region_id")
 
-    state = "—"
+    state = "-"
     if region_id:
         region_id_str = str(region_id)
         country_code = region_id_str.split("-")[0]
 
         if country_code in regions:
             country_regions = regions[country_code]
-            state = country_regions.get(region_id_str, "—")
+            state = country_regions.get(region_id_str, "-")
         else:
-            state = regions.get(region_id_str, "—")
+            state = regions.get(region_id_str, "-")
     else:
         state = "—"
 
@@ -206,7 +206,7 @@ def main():
         f"{Fore.CYAN}Country:{Style.RESET_ALL}        {Fore.WHITE}{f"{user.country.code} | {user.country.name}"}{Style.RESET_ALL}",
         f"{Fore.CYAN}State:{Style.RESET_ALL}          {Fore.WHITE}{state}{Style.RESET_ALL}",
         f"{Fore.CYAN}Playmode:{Style.RESET_ALL}       {Fore.WHITE}{playmode}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Team:{Style.RESET_ALL}           {Fore.WHITE}{f"{user.team.short_name} | {user.team.name}" if user.team else "—"}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Team:{Style.RESET_ALL}           {Fore.WHITE}{f"{user.team.short_name} | {user.team.name}" if user.team else "-"}{Style.RESET_ALL}",
         f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{round(user.statistics.pp)}{Style.RESET_ALL}",
         f"{Fore.CYAN}Accuracy:{Style.RESET_ALL}       {Fore.WHITE}{round(user.statistics.hit_accuracy, 2)}%{Style.RESET_ALL}",
         f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{user.statistics.global_rank}{Style.RESET_ALL}",
