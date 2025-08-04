@@ -1,6 +1,8 @@
 # osufetch
 Little program, that show your osu profile info like neofetch/fastfetch
 
+<img width="793" height="295" alt="image" src="https://github.com/user-attachments/assets/c2e3cd47-2a7c-4e27-8ca8-34f2abba5c1b" />
+
 ## Installation
 
 ### Arch Linux
@@ -39,3 +41,6 @@ You will get Client ID and Client Secret, that you need to enter in osufetch set
 Client ID, Client Secret and your osu! profile id will be saved in `~/.config/osufetch/config.ini`
 
 Then you will be redirected to [osu!](https://osu.ppy.sh/oauth/applications) and click on "Create" button
+
+## To-do
+- Add support [https://osuworld.octo.moe/](https://osuworld.octo.moe/) for states statistics
