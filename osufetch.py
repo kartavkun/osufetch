@@ -1,6 +1,7 @@
 import os
 import sys
 import argparse
+import httpx
 from configparser import ConfigParser
 from ossapi import Ossapi
 from datetime import datetime
@@ -151,17 +152,51 @@ def main():
 
     api = Ossapi(client_id, client_secret)
     user = fetch_user_data(api, user_id)
-    
+
+    playmode = user.playmode
+    url = f"https://osuworld.octo.moe/api/users/{user_id}?mode={playmode}"
+    with httpx.Client(http2=True) as client:
+        response = client.get(url)
+        data = response.json()
+
+    def load_regions():
+        url = "https://osuworld.octo.moe/locales/en/regions.json"
+        try:
+            with httpx.Client(http2=True, timeout=10) as client:
+                response = client.get(url)
+                response.raise_for_status()
+                data = response.json()
+                # data — это словарь region_id -> region_name
+                return data
+        except Exception as e:
+            print(f"Warning: Failed to fetch regions mapping: {e}")
+            return {}
+
+    regions = load_regions()
+
     username = user.username
     aka = ", ".join(user.previous_usernames) if user.previous_usernames else "—"
-    playmode = user.playmode
     country = f"{user.country.code} | {user.country.name}"
+    region_id = data.get("region_id")
+    region_id = data.get("region_id")
+
     state = "—"
+    if region_id:
+        region_id_str = str(region_id)
+        country_code = region_id_str.split("-")[0]
+
+        if country_code in regions:
+            country_regions = regions[country_code]
+            state = country_regions.get(region_id_str, "—")
+        else:
+            state = regions.get(region_id_str, "—")
+    else:
+        state = "—"
     team = f"{user.team.short_name} | {user.team.name}" if user.team else "—"
     level = user.statistics.level.current
     global_rank = user.statistics.global_rank
     country_rank = user.statistics.country_rank
-    state_rank = "—"
+    state_rank = f"data.get("placement", "—")"
     pp = int(user.statistics.pp)
     accuracy = round(user.statistics.hit_accuracy, 2)
     playcount = user.statistics.play_count
@@ -194,7 +229,7 @@ def main():
         f"{Fore.CYAN}Accuracy:{Style.RESET_ALL}       {Fore.WHITE}{accuracy}%{Style.RESET_ALL}",
         f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{global_rank}{Style.RESET_ALL}",
         f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{country_rank}{Style.RESET_ALL}",
-        f"{Fore.CYAN}State Rank:{Style.RESET_ALL}     {Fore.WHITE}#{state_rank}{Style.RESET_ALL}",
+        f"{Fore.CYAN}State Rank:{Style.RESET_ALL}     {Fore.WHITE}{state_rank}{Style.RESET_ALL}",
         f"{Fore.CYAN}Play Count:{Style.RESET_ALL}     {Fore.WHITE}{playcount}{Style.RESET_ALL}",
         f"{Fore.CYAN}Max Combo:{Style.RESET_ALL}      {Fore.WHITE}{max_combo}{Style.RESET_ALL}",
         f"{Fore.CYAN}Grades:{Style.RESET_ALL}         {Fore.WHITE}SS: {grades.ss} | SSH: {grades.ssh} | S: {grades.s} | SH: {grades.sh} | A: {grades.a}{Style.RESET_ALL}",

@@ -43,4 +43,4 @@ Client ID, Client Secret and your osu! profile id will be saved in `~/.config/os
 Then you will be redirected to [osu!](https://osu.ppy.sh/oauth/applications) and click on "Create" button
 
 ## To-do
-- Add support [https://osuworld.octo.moe/](https://osuworld.octo.moe/) for states statistics
+Nothing :3
