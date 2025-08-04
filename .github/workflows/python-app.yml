@@ -35,7 +35,8 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       with:
-        tag: ${{ github.ref }}
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
         files: |
           dist/osufetch
       env:
