@@ -196,7 +196,7 @@ def main():
     level = user.statistics.level.current
     global_rank = user.statistics.global_rank
     country_rank = user.statistics.country_rank
-    state_rank = f"data.get("placement", "—")"
+    state_rank = data.get("placement", "—")
     pp = int(user.statistics.pp)
     accuracy = round(user.statistics.hit_accuracy, 2)
     playcount = user.statistics.play_count
