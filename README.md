@@ -3,6 +3,10 @@ Little program, that show your osu profile info like neofetch/fastfetch
 
 <img width="657" height="930" alt="image" src="https://github.com/user-attachments/assets/4ebdc053-7537-45a9-9319-89bf182560eb" />
 
+Features:
+- Support [osu!worldmap](https://osuworld.octo.moe/)
+- Check other osu! profiles
+
 ## Installation
 
 ### Arch Linux
@@ -43,4 +47,4 @@ Client ID, Client Secret and your osu! profile id will be saved in `~/.config/os
 Then you will be redirected to [osu!](https://osu.ppy.sh/oauth/applications) and click on "Create" button
 
 ## To-do
-Nothing :3
+- Make editable config file for info, that will be shown in osufetch (Playstyle, Medals, etc.)
