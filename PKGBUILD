@@ -1,6 +1,6 @@
 # Maintainer: kartavkun <nikitarobezhko@yandex.ru>
 pkgname=osufetch-bin
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Minimal terminal osu! profile viewer"
 arch=('x86_64')
