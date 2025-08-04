@@ -6,6 +6,9 @@ Little program, that show your osu profile info like neofetch/fastfetch
 ## Installation
 
 ### Arch Linux
+> [!WARNING]
+> I didn't make AUR package right now and try to figure out how to do that, so use install script via curl
+> 
 Use your preffered AUR helper to install osufetch
 ```
 yay -S osufetch
