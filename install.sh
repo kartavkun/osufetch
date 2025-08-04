@@ -23,7 +23,7 @@ TAG=$(curl -s "https://api.github.com/repos/${REPO}/releases/latest" | grep '"ta
 echo "📦 Installing $BIN_NAME version $TAG for $ARCH..."
 
 # Формируем URL
-BIN_URL="https://github.com/${REPO}/releases/download/${TAG}/${BIN_NAME}-${ARCH}"
+BIN_URL="https://github.com/${REPO}/releases/download/${TAG}/${BIN_NAME}"
 
 # Качаем бинарник во временную директорию
 TMP_DIR=$(mktemp -d)
