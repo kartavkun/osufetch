@@ -201,7 +201,7 @@ def main():
         f"{Fore.CYAN}State:{Style.RESET_ALL}          {Fore.WHITE}{state}{Style.RESET_ALL}",
         f"{Fore.CYAN}Playmode:{Style.RESET_ALL}       {Fore.WHITE}{playmode}{Style.RESET_ALL}",
         f"{Fore.CYAN}Team:{Style.RESET_ALL}           {Fore.WHITE}{f"{user.team.short_name} | {user.team.name}" if user.team else "—"}{Style.RESET_ALL}",
-        f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{int(user.statistics.pp)}{Style.RESET_ALL}",
+        f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{round(user.statistics.pp)}{Style.RESET_ALL}",
         f"{Fore.CYAN}Accuracy:{Style.RESET_ALL}       {Fore.WHITE}{round(user.statistics.hit_accuracy, 2)}%{Style.RESET_ALL}",
         f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{user.statistics.global_rank}{Style.RESET_ALL}",
         f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{user.statistics.country_rank}{Style.RESET_ALL}",
@@ -215,7 +215,7 @@ def main():
 
     # Workaround for 4K/7K mania mode
     if playmode == "mania":
-        info_lines[6] = f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{int(user.statistics.pp)} (4K: {int(user.statistics.variants[0].pp)}, 7K: {int(user.statistics.variants[1].pp)}){Style.RESET_ALL}"
+        info_lines[6] = f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{round(user.statistics.pp)} (4K: {round(user.statistics.variants[0].pp)}, 7K: {round(user.statistics.variants[1].pp)}){Style.RESET_ALL}"
         info_lines[8] = f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{user.statistics.global_rank} (4K: #{user.statistics.variants[0].global_rank}, 7K: #{user.statistics.variants[1].global_rank}){Style.RESET_ALL}"
         info_lines[9] = f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{user.statistics.country_rank} (4K: #{user.statistics.variants[0].country_rank}, 7K: #{user.statistics.variants[1].country_rank}){Style.RESET_ALL}"
 
