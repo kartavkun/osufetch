@@ -151,7 +151,7 @@ def main():
 
     api = Ossapi(client_id, client_secret)
     user = fetch_user_data(api, user_id)
-
+    
     username = user.username
     aka = ", ".join(user.previous_usernames) if user.previous_usernames else "—"
     playmode = user.playmode
@@ -169,6 +169,16 @@ def main():
     grades = user.statistics.grade_counts
     supporter = "Yes" if user.is_supporter else "No"
     join_date = user.join_date.date()
+
+    # Получение PP и Ранга для 4K и 7K мании
+    # user.statistics.variants - Array, где [0] - 4K, [1] - 7K
+    if playmode == "mania":
+        pp_4k = int(user.statistics.variants[0].pp)
+        pp_7k = int(user.statistics.variants[1].pp)
+        global_rank_4k = int(user.statistics.variants[0].global_rank)
+        global_rank_7k = int(user.statistics.variants[1].global_rank)
+        country_rank_4k = int(user.statistics.variants[0].country_rank)
+        country_rank_7k = int(user.statistics.variants[1].country_rank)
 
     ascii_art = ascii_arts.get(playmode, "(no ascii art)")
 
@@ -191,6 +201,12 @@ def main():
         f"{Fore.CYAN}Supporter:{Style.RESET_ALL}      {Fore.WHITE}{supporter}{Style.RESET_ALL}",
         f"{Fore.CYAN}Joined:{Style.RESET_ALL}         {Fore.WHITE}{join_date}{Style.RESET_ALL}",
     ]
+
+    # Модификация строк для 4K и 7K мании
+    if playmode == "mania":
+        info_lines[6] = f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{pp} (4K: {pp_4k}, 7K: {pp_7k}){Style.RESET_ALL}"
+        info_lines[8] = f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{global_rank} (4K: #{global_rank_4k}, 7K: #{global_rank_7k}){Style.RESET_ALL}"
+        info_lines[9] = f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{country_rank} (4K: #{country_rank_4k}, 7K: #{country_rank_7k}){Style.RESET_ALL}"
 
     # Print ASCII art + info side by side
     max_lines = max(len(ascii_lines), len(info_lines))
