@@ -1,3 +1,5 @@
+__version__ = "1.4.0"
+
 import os
 import sys
 import argparse
@@ -137,6 +139,7 @@ def fetch_user_data(api, user_id):
 def main():
     parser = argparse.ArgumentParser(description="osufetch — terminal osu! profile")
     parser.add_argument("id", nargs="?", help="Specify osu! user ID/Name for this run only (does NOT overwrite config)")
+    parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
     args = parser.parse_args()
 
     config = load_or_create_config()

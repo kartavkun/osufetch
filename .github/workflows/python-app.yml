@@ -31,11 +31,15 @@ jobs:
     - name: Build application
       run: |
         pyinstaller --onefile osufetch.py
+    - name: Get version
+      run : echo "::set-output name=version::$(./dist/osufetch --version)"
+      id: version
     - name: Create release
       uses: actions/create-release@v1
       id: create_release
       with:
-        tag_name: ${{ github.ref_name }}
+        tag_name: ${{ steps.version.outputs.version }}
+        release_name: Release ${{ steps.version.outputs.version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload artifact to release
