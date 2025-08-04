@@ -202,7 +202,7 @@ def main():
     ascii_lines = ascii_art.strip("\n").split("\n")
     info_lines = [
         f"{Fore.CYAN}Username:{Style.RESET_ALL}       {Fore.WHITE}{user.username}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Also known as:{Style.RESET_ALL}  {Fore.WHITE}{", ".join(user.previous_usernames) if user.previous_usernames else "—"}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Also known as:{Style.RESET_ALL}  {Fore.WHITE}{", ".join(user.previous_usernames) if user.previous_usernames else "-"}{Style.RESET_ALL}",
         f"{Fore.CYAN}Country:{Style.RESET_ALL}        {Fore.WHITE}{f"{user.country.code} | {user.country.name}"}{Style.RESET_ALL}",
         f"{Fore.CYAN}State:{Style.RESET_ALL}          {Fore.WHITE}{state}{Style.RESET_ALL}",
         f"{Fore.CYAN}Playmode:{Style.RESET_ALL}       {Fore.WHITE}{playmode}{Style.RESET_ALL}",
