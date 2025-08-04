@@ -1,3 +1,6 @@
 venv
 __pycache__
 something.py
+build
+dist
+*.spec
