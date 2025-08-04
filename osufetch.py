@@ -128,7 +128,7 @@ def load_or_create_config():
 
 def fetch_user_data(api, user_id):
     try:
-        user = api.user(int(user_id))
+        user = api.user(user_id)
         return user
     except Exception as e:
         print(f"Error fetching user data: {e}")
@@ -136,7 +136,7 @@ def fetch_user_data(api, user_id):
 
 def main():
     parser = argparse.ArgumentParser(description="osufetch — terminal osu! profile")
-    parser.add_argument("--id", help="Specify osu! user ID for this run only (does NOT overwrite config)")
+    parser.add_argument("id", nargs="?", help="Specify osu! user ID/Name for this run only (does NOT overwrite config)")
     args = parser.parse_args()
 
     config = load_or_create_config()
@@ -146,12 +146,18 @@ def main():
 
     user_id = args.id if args.id else config["DEFAULT"].get("user_id")
 
-    if not user_id or not user_id.isdigit():
+    if not user_id:
         print("Error: osu! user ID is missing or invalid.")
         sys.exit(1)
 
+    if not user_id.isdigit() and not user_id.startswith("@"):
+        user_id = f"@{user_id}"
+    
     api = Ossapi(client_id, client_secret)
     user = fetch_user_data(api, user_id)
+
+    if not user_id.isdigit():
+        user_id = user.id
 
     playmode = user.playmode
     url = f"https://osuworld.octo.moe/api/users/{user_id}?mode={playmode}"
