@@ -174,10 +174,6 @@ def main():
 
     regions = load_regions()
 
-    username = user.username
-    aka = ", ".join(user.previous_usernames) if user.previous_usernames else "—"
-    country = f"{user.country.code} | {user.country.name}"
-    region_id = data.get("region_id")
     region_id = data.get("region_id")
 
     state = "—"
@@ -192,56 +188,36 @@ def main():
             state = regions.get(region_id_str, "—")
     else:
         state = "—"
-    team = f"{user.team.short_name} | {user.team.name}" if user.team else "—"
-    level = user.statistics.level.current
-    global_rank = user.statistics.global_rank
-    country_rank = user.statistics.country_rank
-    state_rank = data.get("placement", "—")
-    pp = int(user.statistics.pp)
-    accuracy = round(user.statistics.hit_accuracy, 2)
-    playcount = user.statistics.play_count
-    max_combo = user.statistics.maximum_combo
-    grades = user.statistics.grade_counts
-    supporter = "Yes" if user.is_supporter else "No"
-    join_date = user.join_date.date()
 
-    # Получение PP и Ранга для 4K и 7K мании
-    # user.statistics.variants - Array, где [0] - 4K, [1] - 7K
-    if playmode == "mania":
-        pp_4k = int(user.statistics.variants[0].pp)
-        pp_7k = int(user.statistics.variants[1].pp)
-        global_rank_4k = int(user.statistics.variants[0].global_rank)
-        global_rank_7k = int(user.statistics.variants[1].global_rank)
-        country_rank_4k = int(user.statistics.variants[0].country_rank)
-        country_rank_7k = int(user.statistics.variants[1].country_rank)
+    grades = user.statistics.grade_counts
 
     ascii_art = ascii_arts.get(playmode, "(no ascii art)")
 
     ascii_lines = ascii_art.strip("\n").split("\n")
     info_lines = [
-        f"{Fore.CYAN}Username:{Style.RESET_ALL}       {Fore.WHITE}{username}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Also known as:{Style.RESET_ALL}  {Fore.WHITE}{aka}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Country:{Style.RESET_ALL}        {Fore.WHITE}{country}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Username:{Style.RESET_ALL}       {Fore.WHITE}{user.username}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Also known as:{Style.RESET_ALL}  {Fore.WHITE}{", ".join(user.previous_usernames) if user.previous_usernames else "—"}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Country:{Style.RESET_ALL}        {Fore.WHITE}{f"{user.country.code} | {user.country.name}"}{Style.RESET_ALL}",
         f"{Fore.CYAN}State:{Style.RESET_ALL}          {Fore.WHITE}{state}{Style.RESET_ALL}",
         f"{Fore.CYAN}Playmode:{Style.RESET_ALL}       {Fore.WHITE}{playmode}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Team:{Style.RESET_ALL}           {Fore.WHITE}{team}{Style.RESET_ALL}",
-        f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{pp}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Accuracy:{Style.RESET_ALL}       {Fore.WHITE}{accuracy}%{Style.RESET_ALL}",
-        f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{global_rank}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{country_rank}{Style.RESET_ALL}",
-        f"{Fore.CYAN}State Rank:{Style.RESET_ALL}     {Fore.WHITE}#{state_rank}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Play Count:{Style.RESET_ALL}     {Fore.WHITE}{playcount}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Max Combo:{Style.RESET_ALL}      {Fore.WHITE}{max_combo}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Team:{Style.RESET_ALL}           {Fore.WHITE}{f"{user.team.short_name} | {user.team.name}" if user.team else "—"}{Style.RESET_ALL}",
+        f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{round(user.statistics.pp)}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Accuracy:{Style.RESET_ALL}       {Fore.WHITE}{round(user.statistics.hit_accuracy, 2)}%{Style.RESET_ALL}",
+        f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{user.statistics.global_rank}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{user.statistics.country_rank}{Style.RESET_ALL}",
+        f"{Fore.CYAN}State Rank:{Style.RESET_ALL}     {Fore.WHITE}#{data.get("placement", "-")}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Play Count:{Style.RESET_ALL}     {Fore.WHITE}{user.statistics.play_count}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Max Combo:{Style.RESET_ALL}      {Fore.WHITE}{user.statistics.maximum_combo}{Style.RESET_ALL}",
         f"{Fore.CYAN}Grades:{Style.RESET_ALL}         {Fore.WHITE}SS: {grades.ss} | SSH: {grades.ssh} | S: {grades.s} | SH: {grades.sh} | A: {grades.a}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Supporter:{Style.RESET_ALL}      {Fore.WHITE}{supporter}{Style.RESET_ALL}",
-        f"{Fore.CYAN}Joined:{Style.RESET_ALL}         {Fore.WHITE}{join_date}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Supporter:{Style.RESET_ALL}      {Fore.WHITE}{"Yes" if user.is_supporter else "No"}{Style.RESET_ALL}",
+        f"{Fore.CYAN}Joined:{Style.RESET_ALL}         {Fore.WHITE}{user.join_date.date()}{Style.RESET_ALL}",
     ]
 
-    # Модификация строк для 4K и 7K мании
+    # Workaround for 4K/7K mania mode
     if playmode == "mania":
-        info_lines[6] = f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{pp} (4K: {pp_4k}, 7K: {pp_7k}){Style.RESET_ALL}"
-        info_lines[8] = f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{global_rank} (4K: #{global_rank_4k}, 7K: #{global_rank_7k}){Style.RESET_ALL}"
-        info_lines[9] = f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{country_rank} (4K: #{country_rank_4k}, 7K: #{country_rank_7k}){Style.RESET_ALL}"
+        info_lines[6] = f"{Fore.CYAN}PP:{Style.RESET_ALL}             {Fore.WHITE}{round(user.statistics.pp)} (4K: {round(user.statistics.variants[0].pp)}, 7K: {round(user.statistics.variants[1].pp)}){Style.RESET_ALL}"
+        info_lines[8] = f"{Fore.CYAN}Global Rank:{Style.RESET_ALL}    {Fore.WHITE}#{user.statistics.global_rank} (4K: #{user.statistics.variants[0].global_rank}, 7K: #{user.statistics.variants[1].global_rank}){Style.RESET_ALL}"
+        info_lines[9] = f"{Fore.CYAN}Country Rank:{Style.RESET_ALL}   {Fore.WHITE}#{user.statistics.country_rank} (4K: #{user.statistics.variants[0].country_rank}, 7K: #{user.statistics.variants[1].country_rank}){Style.RESET_ALL}"
 
     # Print ASCII art + info side by side
     max_lines = max(len(ascii_lines), len(info_lines))
