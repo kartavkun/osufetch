@@ -63,6 +63,7 @@ jobs:
         ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
         commit_message: Update AUR
         ssh_keyscan_types: rsa,ecdsa,ed25519
+        updpkgsums: true
 
 
 
