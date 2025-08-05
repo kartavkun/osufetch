@@ -17,6 +17,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    if: contains(github.event.head_commit_message, 'build')
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.13
