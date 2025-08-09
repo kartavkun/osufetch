@@ -1,3 +1,7 @@
+> [!WARNING]
+> This project is not maintained anymore
+> Now this project is a part of [osu-cli](https://github.com/kartavkun/osu-cli)
+
 # osufetch
 Little program, that show your osu profile info like neofetch/fastfetch
 
